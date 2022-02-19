@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-
+use App\Http\Controllers\SuperAdmin\UserController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -15,4 +15,13 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     return view('index');
+});
+
+
+
+//SuperAdmin Routes
+Route::prefix('superadmin')->name('superadmin.')->group(function(){
+
+    Route::resource('/users',UserController::class);
+
 });
