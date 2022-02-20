@@ -4,6 +4,8 @@ namespace App\Http\Controllers\SuperAdmin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Models\User;
+
 
 class UserController extends Controller
 {
@@ -14,8 +16,13 @@ class UserController extends Controller
      */
     public function index()
     {
-        //
-        dd('index methon on user Controller');
+        
+        // dd('index methon on user Controller');
+
+        $users=User::all();
+
+        return view('superadmin.users.index',['users'=>$users]);
+        // return view('superadmin.users.index')->with(['users'=>$users]);
 
     }
 
