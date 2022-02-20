@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\Role;
+use App\Http\Requests\StoreUserRequest;
 
 
 class UserController extends Controller
@@ -49,10 +50,16 @@ return view('superadmin.users.create',['roles'=>Role::all()]);
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StoreUserRequest $request)
     {
         // dd($request);
-        $user=User::create($request->except(['_token','roles']));
+        $validatedData=$request->validated();
+        
+        $request->session()->flash('success','You have created the user');
+        // $user=User::create($request->except(['_token','roles']));
+         $user=User::create($validatedData);
+
+
         $user->roles()->sync($request->roles);// if only 1 role for application, we can use attach in the place of sync
         return redirect(route('superadmin.users.index'));
     }
@@ -98,7 +105,17 @@ return view('superadmin.users.create',['roles'=>Role::all()]);
     public function update(Request $request, $id)
     {
         //
-        $user=User::findOrFail($id);
+        // $user=User::findOrFail($id);
+        $user=User::find($id);
+        if(!$user){        $request->session()->flash('error','You cannot edit this user.');
+            return redirect(route('superadmin.users.index'));
+
+        }
+
+
+
+        $request->session()->flash('success','You have edited the user');
+
         $user->update($request->except(['_token','roles']));
         $user->roles()->sync($request->roles);
         return redirect(route('superadmin.users.index'));
@@ -110,11 +127,12 @@ return view('superadmin.users.create',['roles'=>Role::all()]);
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy($id,Request $request)
     {
         //
         // dd($id);
         User::destroy($id);
+        $request->session()->flash('success','You have deleted the user');
         return redirect(route('superadmin.users.index'));
 
     }

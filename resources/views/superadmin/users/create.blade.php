@@ -6,7 +6,6 @@
 <div class="card">
 
 <form method="POST" action="{{route('superadmin.users.store')}}">
-@method('PATCH')  <!--partial update method -->
 
  @include('superadmin.users.partials.form')
 </form>

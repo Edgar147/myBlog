@@ -99,7 +99,11 @@
             </div>
 </nav>
 
-<main class="container">@yield('content')</main>
+<main class="container">
+    @include('partials.alerts')
+    @yield('content')
+
+</main>
 
 
 
