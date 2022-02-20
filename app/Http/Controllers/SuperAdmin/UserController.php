@@ -5,6 +5,7 @@ namespace App\Http\Controllers\SuperAdmin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\User;
+use App\Models\Role;
 
 
 class UserController extends Controller
@@ -34,6 +35,12 @@ class UserController extends Controller
     public function create()
     {
         //
+
+return view('superadmin.users.create',['roles'=>Role::all()]);
+
+
+
+
     }
 
     /**
@@ -44,6 +51,10 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
+        // dd($request);
+        $user=User::create($request->except(['_token','roles']));
+        $user->roles()->sync($request->roles);// if only 1 role for application, we can use attach in the place of sync
+        return redirect(route('superadmin.users.index'));
     }
 
     /**
@@ -66,6 +77,15 @@ class UserController extends Controller
     public function edit($id)
     {
         //
+        return view('superadmin.users.edit',
+        
+        [
+            'roles'=>Role::all(),
+            'user'=>User::find($id)
+    
+    ]);
+
+
     }
 
     /**
@@ -78,6 +98,10 @@ class UserController extends Controller
     public function update(Request $request, $id)
     {
         //
+        $user=User::findOrFail($id);
+        $user->update($request->except(['_token','roles']));
+        $user->roles()->sync($request->roles);
+        return redirect(route('superadmin.users.index'));
     }
 
     /**

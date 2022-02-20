@@ -36,7 +36,7 @@
   </div>
   <div class="mb-3">
     <label for="password_confirmation" class="form-label">Password</label>
-    <input name="password_confirmation" type="password" class="form-control" id="password_confirmation">
+    <input name="password_confirmation" type="password" class="form-control" id="password_confirmation" />
     @error('password_confirmation')
     <span class="invalid-feedback"  role="alert">
         {{$message}}

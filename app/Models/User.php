@@ -7,6 +7,8 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
+use Illuminate\Support\Facades\Hash;//created
+
 
 class User extends Authenticatable
 {
@@ -43,7 +45,9 @@ class User extends Authenticatable
     ];
 
 
-
+public function setPasswordAttribute($password){ //created to hash the explicit password,NOT USED YET
+    $this->attributes['password']=Hash::make($password);
+}
 
     public function roles(){
 
