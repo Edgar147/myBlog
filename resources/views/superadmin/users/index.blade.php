@@ -47,7 +47,8 @@
 
   </tbody>
 </table>
-
+<!-- It's not the same $users, this $users is from UserController ...paginate... -->
+{{$users->links()}} 
 
 </div>
 @endsection

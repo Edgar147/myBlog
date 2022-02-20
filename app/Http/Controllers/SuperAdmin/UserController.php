@@ -19,7 +19,7 @@ class UserController extends Controller
         
         // dd('index methon on user Controller');
 
-        $users=User::all();
+        $users=User::paginate(10); //users per  page
 
         return view('superadmin.users.index',['users'=>$users]);
         // return view('superadmin.users.index')->with(['users'=>$users]);
@@ -89,5 +89,9 @@ class UserController extends Controller
     public function destroy($id)
     {
         //
+        // dd($id);
+        User::destroy($id);
+        return redirect(route('superadmin.users.index'));
+
     }
 }
