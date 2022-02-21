@@ -11288,8 +11288,6 @@ body {
 
 .navbar {
   background-color: #1E2634;
-  box-shadow: 0 5px 10px 0 rgba(204, 204, 204, 0.3);
-  margin-bottom: 40px;
 }
 .navbar a {
   color: #fff;
@@ -11297,6 +11295,15 @@ body {
 
 h1, .h1 {
   margin-bottom: 30px;
+}
+
+.sub-nav {
+  background-color: #ffffff;
+  box-shadow: 0 5px 10px 0 rgba(204, 204, 204, 0.3);
+  margin-bottom: 40px;
+}
+.sub-nav a {
+  color: #1E2634;
 }
 
 .card {

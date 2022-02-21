@@ -20,7 +20,7 @@ Route::get('/', function () {
 
 
 //SuperAdmin Routes
-Route::prefix('superadmin')->name('superadmin.')->group(function(){
+Route::prefix('superadmin')->middleware('auth')->name('superadmin.')->group(function(){
 
     Route::resource('/users',UserController::class);
 
