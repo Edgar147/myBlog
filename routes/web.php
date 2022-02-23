@@ -20,7 +20,7 @@ Route::get('/', function () {
 
 
 //SuperAdmin Routes
-Route::prefix('superadmin')->middleware('auth')->name('superadmin.')->group(function(){
+Route::prefix('superadmin')->middleware(['auth','auth.isSuperAdmin'])->name('superadmin.')->group(function(){ //isSUperAdmin is from accessSuperAdmin
 
     Route::resource('/users',UserController::class);
 

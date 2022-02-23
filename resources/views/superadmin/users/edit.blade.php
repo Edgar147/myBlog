@@ -3,7 +3,7 @@
 @section('content')
 <h1>Edit  user</h1>
 
-<div class="card">
+<div class="content">
 
 <form method="POST" action="{{route('superadmin.users.update',$user->id)}}">
      @method('PATCH')  <!--partial update method -->

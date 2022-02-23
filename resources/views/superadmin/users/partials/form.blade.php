@@ -18,6 +18,8 @@
     </span>
     @enderror
   </div>
+
+  @isset($create)
   <div class="mb-3">
     <label for="password" class="form-label">Password</label>
     <input name="password" type="password" class="form-control @error('password') is-invalid @enderror" id="password" >
@@ -27,6 +29,20 @@
     </span>
     @enderror
   </div>
+
+
+  <div class="mb-3">
+    <label for="password_confirmation" class="form-label">Password confirmation</label>
+    <input name="password_confirmation" type="password" class="form-control @error('password_confirmation') is-invalid @enderror" id="passwords" >
+    @error('password_confirmation')
+    <span class="invalid-feedback" role="alert">
+        {{$message}}
+    </span>
+    @enderror
+  </div>
+@endisset
+
+
 
 
 

@@ -7,6 +7,8 @@ use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\Role;
 use App\Http\Requests\StoreUserRequest;
+use Illuminate\Support\Facades\Gate;
+use App\Actions\Fortify\CreateNewUser;
 
 
 class UserController extends Controller
@@ -22,9 +24,18 @@ class UserController extends Controller
         // dd('index methon on user Controller');
 
         $users=User::paginate(10); //users per  page
+        if(Gate::denies('logged-in')){
+            dd('no aceess allowed');
+            // return view('superadmin.users.index')->with(['users'=>$users]);
+            }
 
+        if(Gate::allows('is-superadmin')){
         return view('superadmin.users.index',['users'=>$users]);
         // return view('superadmin.users.index')->with(['users'=>$users]);
+        }
+        dd('you need to be SuperAdmin');
+
+        
 
     }
 
@@ -52,12 +63,21 @@ return view('superadmin.users.create',['roles'=>Role::all()]);
      */
     public function store(StoreUserRequest $request)
     {
+
+        $newUser=new CreateNewUser();
+        $user= $newUser->create($request->only('name','email','password','password_confirmation'));
+
+
+
+
+
+
         // dd($request);
-        $validatedData=$request->validated();
+        // $validatedData=$request->validated();
         
         $request->session()->flash('success','You have created the user');
         // $user=User::create($request->except(['_token','roles']));
-         $user=User::create($validatedData);
+        //  $user=User::create($validatedData);
 
 
         $user->roles()->sync($request->roles);// if only 1 role for application, we can use attach in the place of sync
@@ -116,6 +136,7 @@ return view('superadmin.users.create',['roles'=>Role::all()]);
 
         $request->session()->flash('success','You have edited the user');
 
+        // $user->update($request->except(['_token','roles']));
         $user->update($request->except(['_token','roles']));
         $user->roles()->sync($request->roles);
         return redirect(route('superadmin.users.index'));

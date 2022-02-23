@@ -7,7 +7,8 @@
 
 <form method="POST" action="{{route('superadmin.users.store')}}">
 
- @include('superadmin.users.partials.form')
+ @include('superadmin.users.partials.form',['create'=>true])   <!-- it will be passed to form.blade.php as $create -->
+
 </form>
 </div>
 
