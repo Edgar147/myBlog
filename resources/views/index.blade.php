@@ -1,5 +1,5 @@
 @extends('templates.main')
 
 @section('content')
-<p>HIIII</p>
+<p>HI</p>
 @endsection
