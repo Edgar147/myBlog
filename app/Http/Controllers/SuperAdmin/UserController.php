@@ -9,6 +9,7 @@ use App\Models\Role;
 use App\Http\Requests\StoreUserRequest;
 use Illuminate\Support\Facades\Gate;
 use App\Actions\Fortify\CreateNewUser;
+use Illuminate\Support\Facades\Password;
 
 
 class UserController extends Controller
@@ -81,6 +82,7 @@ return view('superadmin.users.create',['roles'=>Role::all()]);
 
 
         $user->roles()->sync($request->roles);// if only 1 role for application, we can use attach in the place of sync
+        Password::sendResetLink($request->only(['email']));
         return redirect(route('superadmin.users.index'));
     }
 
