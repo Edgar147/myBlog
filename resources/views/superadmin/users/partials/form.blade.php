@@ -32,7 +32,7 @@
 
 
   <div class="mb-3">
-    <label for="password_confirmation" class="form-label">Passwords confirmation</label>
+    <label for="password_confirmation" class="form-label">Passwords confirrtyerthrhmdsdsation</label>
     <input name="password_confirmation" type="password" class="form-control @error('password_confirmation') is-invalid @enderror" id="passwords" >
     @error('password_confirmation')
     <span class="invalid-feedback" role="alert">
